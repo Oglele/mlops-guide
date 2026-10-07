@@ -64,11 +64,11 @@ jobs:
           echo "# Experiment Report (${{ github.sha }})" >> report.md
 
           # Compare parameters to main branch
-          echo "## Params workspace vs. main" >> report.md
+          echo "## Params workflow vs. main" >> report.md
           dvc params diff main --md >> report.md
 
           # Compare metrics to main branch
-          echo "## Metrics workspace vs. main" >> report.md
+          echo "## Metrics workflow vs. main" >> report.md
           dvc metrics diff main --md >> report.md
 
           # Compare plots (images) to main branch
@@ -100,7 +100,6 @@ jobs:
 
           # Publish the CML report
           cml comment update --target=pr --publish report.md
-
   publish-and-deploy:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
@@ -120,7 +119,6 @@ jobs:
           credentials_json: '${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}'
       - name: Check model
         run: dvc repro --pull
-
       - name: Log in to the Container registry
         uses: docker/login-action@v4
         with:
@@ -139,7 +137,6 @@ jobs:
             --image-tag ${{ secrets.GCP_CONTAINER_REGISTRY_HOST }}/celestial-bodies-classifier:${{ github.sha }}
           # Push the container to the Container Registry
           docker push --all-tags ${{ secrets.GCP_CONTAINER_REGISTRY_HOST }}/celestial-bodies-classifier
-
       - name: Get Google Cloud's Kubernetes credentials
         uses: google-github-actions/get-gke-credentials@v3
         with:
