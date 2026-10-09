@@ -9,6 +9,7 @@ __pycache__/
 
 ## Monitoring
 logs/
+monitoring/
 
 ## DVC
 
