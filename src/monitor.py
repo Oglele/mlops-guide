@@ -46,6 +46,7 @@ CAT_DRIFT_THRESHOLD = 0.1
 EMBEDDING_DRIFT_THRESHOLD = 0.7
 
 
+
 def expand_embedding_column(df: pd.DataFrame) -> pd.DataFrame:
     """Unpack a list-valued embedding column into one column per dimension.
 
